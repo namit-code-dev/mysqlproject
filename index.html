@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional Carousel</title>
+
+<!-- Materialize CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Materialize JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<style>
+
+body{
+margin:0;
+padding:0;
+font-family:Arial;
+}
+
+/* Background */
+.carousel{
+height:100vh;
+background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+}
+.carousel.carousel-slider{
+height:100vh !important;
+}
+
+/* Image styling */
+.carousel .carousel-item img{
+width:250px;
+height:250px;
+border-radius:50%;
+margin-top:120px;
+box-shadow:0 0 25px rgba(0,255,255,0.7);
+transition:0.4s;
+}
+
+/* Hover effect */
+.carousel .carousel-item img:hover{
+transform:scale(1.1);
+box-shadow:0 0 40px cyan;
+}
+
+/* Caption */
+.caption{
+position:absolute;
+bottom:200px;
+left:50%;
+transform:translateX(-50%);
+text-align:center;
+color:white;
+}
+
+.caption h4{
+font-weight:bold;
+}
+
+.caption p{
+font-size:16px;
+opacity:0.9;
+}
+
+
+.search{
+height:60vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background: linear-gradient(135deg,#000000,#0f2027,#203a43);
+}
+
+#filter{
+background:white;
+padding:25px 35px;
+border-radius:12px;
+box-shadow:0 15px 35px rgba(250, 243, 243, 0.4);
+gap:15px;
+}
+
+#filter input{
+padding:10px 15px;
+border:1px solid #ccc;
+border-radius:6px;
+outline:none;
+font-size:14px;
+width:300px;
+transition:0.3s;
+}
+
+#filter input:focus{
+border-color:#26a69a;
+box-shadow:0 0 5px rgba(38,166,154,0.5);
+}
+
+#searchbutton{
+padding:10px 20px;
+border:none;
+background:#26a69a;
+color:white;
+font-weight:bold;
+border-radius:6px;
+cursor:pointer;
+transition:0.3s;
+}
+
+#searchbutton:hover{
+background:#1b8078;
+transform:scale(1.05);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="carousel carousel-slider center">
+
+<a class="carousel-item" href="#one">
+<img src="callcenter.jpg">
+<div class="caption">
+<h4>24/7 Support</h4>
+<p>Our team is available anytime</p>
+</div>
+</a>
+
+<a class="carousel-item" href="#two">
+<img src="emergency.jpg">
+<div class="caption">
+<h4>Emergency Help</h4>
+<p>Quick response for emergencies</p>
+</div>
+</a>
+
+<a class="carousel-item" href="#three">
+<img src="image.png">
+<div class="caption">
+<h4>Customer Care</h4>
+<p>Friendly customer support</p>
+</div>
+</a>
+
+<a class="carousel-item" href="#four">
+<img src="sp.webp">
+<div class="caption">
+<h4>Fast Service</h4>
+<p>We deliver quick solutions</p>
+</div>
+</a>
+</div>
+
+<div class="search">
+  <div id="filter">
+    <input type="text" name="service" id="service" placeholder="Which type of service number is required">
+    <input type="text" name ="city" id="city" placeholder="Enter your city name">
+    <button id="searchbutton">Search</button>
+  </div>
+</div>
+
+<script>
+
+$(document).ready(function(){
+
+$('.carousel').carousel({
+fullWidth:true,
+indicators:true
+});
+
+/* Auto slide */
+setInterval(function(){
+$('.carousel').carousel('next');
+},3000);
+
+});
+
+</script>
+
+</body>
+</html>

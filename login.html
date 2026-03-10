@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | Service Hub</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: white;
+}
+
+.login-container {
+  background: rgba(0,0,0,0.7);
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,255,255,0.2);
+  width: 350px;
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+
+.login-container input::placeholder {
+  color: #ccc;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #26a69a;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-container button:hover {
+  background: #1b8078;
+  transform: scale(1.03);
+}
+
+.login-container .signup-link {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.login-container .signup-link a {
+  color: #26a69a;
+  text-decoration: none;
+}
+
+.login-container .signup-link a:hover {
+  text-decoration: underline;
+}
+
+#error {
+  color: #ff6b6b;
+  text-align: center;
+  margin-bottom: 15px;
+}
+</style>
+</head>
+<body>
+
+<div class="login-container">
+  <h2>Login</h2>
+  <div id="error"></div>
+  <form id="loginForm">
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button type="submit">Login</button>
+  </form>
+  <div class="signup-link">
+    Don't have an account? <a href="/index.html">Sign Up</a>
+  </div>
+</div>
+
+<script>
+const form = document.getElementById('loginForm');
+const errorDiv = document.getElementById('error');
+
+form.addEventListener('submit', async function(e){
+  e.preventDefault(); // prevent default form submit
+  errorDiv.textContent = '';
+
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+
+  if(!email || !password){
+    errorDiv.textContent = 'Please fill in all fields';
+    return;
+  }
+
+  const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+  if(!emailPattern.test(email)){
+    errorDiv.textContent = 'Please enter a valid email';
+    return;
+  }
+
+  try {
+    const response = await fetch('/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+
+    const data = await response.text();
+    errorDiv.textContent = data;
+
+    // Redirect on successful login
+    if(data.startsWith('Welcome')){
+      setTimeout(()=>{ window.location.href='/'; }, 1000);
+    }
+  } catch(err){
+    console.error(err);
+    errorDiv.textContent = 'Server error';
+  }
+});
+</script>
+
+</body>
+</html>
